@@ -1,0 +1,1026 @@
+/* ═══════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 50%, #1a0b2e 100%);
+color: #f0e6d2;
+overflow: hidden;
+position: relative;
+width: 100vw;
+height: 100vh;
+margin: 0;
+padding: 0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   PARTICULES DE FOND
+   ═══════════════════════════════════════════════════════ */
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #ffd700;
+    border-radius: 50%;
+    animation: float 10s infinite ease-in-out;
+    opacity: 0.6;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   GESTION DES ÉCRANS
+   ═══════════════════════════════════════════════════════ */
+
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 10;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ÉCRAN D'ACCUEIL
+   ═══════════════════════════════════════════════════════ */
+
+.welcome-content {
+    text-align: center;
+    animation: fadeInScale 1.5s ease;
+}
+
+.magic-title {
+font-size: 3rem;
+font-weight: bold;
+color: #ffd700;
+text-shadow: 0 0 20px #ffd700, 0 0 40px #ff6ec7;
+margin-bottom: 1rem;
+animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { text-shadow: 0 0 20px #ffd700, 0 0 40px #ff6ec7; }
+    50% { text-shadow: 0 0 30px #ffd700, 0 0 60px #ff6ec7, 0 0 80px #00ffff; }
+}
+
+.subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 3rem;
+    color: #c7b299;
+}
+
+.magic-button {
+    padding: 1.5rem 3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1a0b2e;
+    background: linear-gradient(135deg, #ffd700, #ff6ec7);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 30px #ffd700;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.magic-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 50px #ffd700, 0 0 100px #ff6ec7;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   VIDÉOS PLEIN ÉCRAN
+   ═══════════════════════════════════════════════════════ */
+
+.fullscreen-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.skip-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border: 2px solid #ffd700;
+    border-radius: 10px;
+    cursor: pointer;
+    pointer-events: all;
+    font-size: 1rem;
+}
+
+.subtitles {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    padding: 20px 40px;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #ffd700;
+    max-width: 80%;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ÉPREUVE 1 : CRI MAGIQUE
+   ═══════════════════════════════════════════════════════ */
+
+.challenge-container {
+    width: 90%;
+    max-width: 1200px;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.challenge-title {
+    font-size: 3rem;
+    color: #ffd700;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 20px #ffd700;
+}
+
+.portal-container {
+    margin: 3rem auto;
+    width: 400px; 
+    height: 400px; 
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    /* Neutralisation pour le placeholder dans l'Épreuve du Cri */
+    background: transparent !important; 
+    box-shadow: none !important; 
+    border: none !important;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styles pour la vidéo du portail dans l'écran de Validation (Screen 5) */
+.portal-video.portal-finale {
+    width: 400px; 
+    height: 400px; 
+    object-fit: cover;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 50px #ffd700);
+    transition: all 0.5s ease;
+    display: block;
+    margin: 2rem auto;
+    z-index: 5; /* Au-dessus de l'explosion */
+}
+
+/* Les styles du portail hérités sont désormais gérés par .portal-video.portal-finale */
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+
+.instruction-box {
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255,215,0,0.1);
+    border: 2px solid #ffd700;
+    border-radius: 20px;
+    max-width: 800px;
+}
+
+.instruction-box p {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.magic-formula {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffd700;
+    margin-top: 1rem;
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BARRE DE VOIX
+   ═══════════════════════════════════════════════════════ */
+
+.voice-meter-container {
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+.voice-label {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.voice-meter {
+    width: 100%;
+    height: 40px;
+    background: rgba(0,0,0,0.5);
+    border: 2px solid #ffd700;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.voice-level {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4ade80, #ffd700, #ff6ec7);
+    transition: width 0.1s ease;
+    box-shadow: 0 0 20px #ffd700;
+}
+
+.voice-percentage {
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BOUTONS ADMIN
+   ═══════════════════════════════════════════════════════ */
+
+.admin-button {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.1);
+    color: #ffd700;
+    border: 2px solid #ffd700;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.admin-button:hover {
+    background: rgba(255,215,0,0.2);
+    transform: scale(1.05);
+}
+
+/* ═══════════════════════════════════════════════════════
+   TRANSITIONS
+   ═══════════════════════════════════════════════════════ */
+
+.transition-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portal-activated {
+    text-align: center;
+    position: relative;
+}
+
+.pulse-circle {
+    width: 300px;
+    height: 300px;
+    border: 5px solid #ffd700;
+    border-radius: 50%;
+    margin: 0 auto 2rem;
+    animation: pulsate 1s ease-in-out infinite;
+}
+
+@keyframes pulsate {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.5; }
+}
+
+.success-text {
+    font-size: 3rem;
+    color: #4ade80;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 20px #4ade80;
+}
+
+.transition-text {
+    font-size: 1.5rem;
+    color: #c7b299;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ÉPREUVE 2 : SILENCE
+   ═══════════════════════════════════════════════════════ */
+
+.timer-container {
+    margin: 0.5rem auto;
+}
+
+.timer-label {
+    font-size: 1.2rem;
+    color: #c7b299;
+    margin-bottom: 0.5rem;
+}
+
+.timer-display {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 30px #ffd700;
+    font-family: 'Courier New', monospace;
+}
+
+.silence-image-container {
+    margin: 1rem auto;
+}
+
+.silence-icon {
+    width: 150px;
+    height: 150px;
+    filter: drop-shadow(0 0 30px #ffd700);
+    animation: float-icon 3s ease-in-out infinite;
+}
+
+@keyframes float-icon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.sound-meter-container {
+    margin: 1rem auto;
+    max-width: 600px;
+}
+
+.sound-label {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.sound-meter {
+    width: 100%;
+    height: 40px;
+    background: rgba(0,0,0,0.5);
+    border: 2px solid #4ade80;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.sound-level {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4ade80, #fbbf24);
+    transition: width 0.1s ease;
+}
+
+.sound-level.danger {
+    background: linear-gradient(90deg, #fbbf24, #f87171);
+}
+
+.sound-warning {
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    color: #f87171;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sound-warning.visible {
+    opacity: 1;
+}
+
+.instruction-text {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #c7b299;
+    font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════════════
+   OUVERTURE PORTAIL
+   ═══════════════════════════════════════════════════════ */
+
+.portal-opening {
+    text-align: center;
+    width: 100%;
+}
+
+.explosion-text {
+    font-size: 4rem;
+    color: #ffd700;
+    margin-bottom: 2rem;
+    animation: explosionPulse 0.5s ease-in-out 3;
+}
+
+@keyframes explosionPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.portal-message {
+    font-size: 1.8rem;
+    color: #c7b299;
+    margin-bottom: 3rem;
+}
+
+.portal-explosion {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    background: radial-gradient(circle, #ffd700, transparent);
+    border-radius: 50%;
+    animation: explode 2s ease-out forwards;
+}
+
+@keyframes explode {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   TUNNEL
+   ═══════════════════════════════════════════════════════ */
+
+.tunnel-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+
+.tunnel-effect {
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-radial-gradient(
+            circle at center,
+            transparent 0px,
+            transparent 50px,
+            #7c3aed 50px,
+            #7c3aed 100px
+        );
+    animation: tunnel 2s linear infinite;
+}
+
+@keyframes tunnel {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   BIBLIOTHÈQUE
+   ═══════════════════════════════════════════════════════ */
+
+.library-container {
+    /* Nouvelle configuration Flexbox pour étirer le conteneur sur tout l'écran */
+    width: 100%;
+    height: 100%;
+    position: relative; /* Nécessaire si vous le combinez avec video-overlay */
+    
+    display: flex;
+    flex-direction: column; /* Organiser les éléments verticalement */
+    align-items: center; /* Centrer horizontalement le contenu */
+    
+    /* Le conteneur se positionne en haut (start) */
+    justify-content: flex-start; 
+    
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto; /* Centrer le bloc library-container lui-même */
+    padding-top: 5vh; /* Marge en haut pour le titre */
+}
+
+.library-title {
+    font-size: 3rem;
+    color: #ffd700;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 30px #ffd700;
+}
+
+.library-message {
+    font-size: 1.5rem;
+    color: #c7b299;
+    margin-bottom: 3rem;
+}
+
+.library-message p {
+    margin-bottom: 1rem;
+}
+
+.library-message strong {
+    color: #ffd700;
+    font-size: 1.8rem;
+}
+
+/* ═══════════════════════════════════════════════════════
+   LIVRES EN CERCLE
+   ═══════════════════════════════════════════════════════ */
+
+.books-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    pointer-events: none;
+}
+
+/* NOUVEAUX STYLES OU AJUSTEMENTS POUR L'OVERLAY DE L'ÉCRAN DES LIVRES */
+.livres-content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    
+    /* TRANSPARENT - pas de fond noir ! */
+    background: transparent !important;
+}
+
+/* Réactiver les clics pour les éléments interactifs spécifiques */
+.livres-content-overlay .book,
+.livres-content-overlay .admin-button {
+    pointer-events: auto !important;
+}
+
+.livres-content-overlay > * {
+    pointer-events: auto;
+}
+
+/* Ajuster le titre des livres pour qu'il soit bien positionné dans le nouvel overlay */
+#screen-livres .books-title {
+    position: relative; /* Ne plus être absolu, juste dans le flux flex */
+    margin-bottom: 20px; /* Espace en dessous */
+    margin-top: 0; /* Pas de marge supérieure excessive */
+    color: #ffd700;
+    text-shadow: 0 0 10px #ff0, 0 0 20px #ff0, 0 0 30px #ff0;
+    font-size: 2.5rem; /* Ajuster la taille du titre */
+}
+/* Ajoutez également ces styles pour les autres éléments si elles ne sont pas centrées */
+#screen-livres .books-circle-container {
+    z-index: 3;
+    margin-bottom: 20px;
+}
+#screen-livres .current-call {
+    z-index: 3;
+    margin-bottom: 20px;
+}
+#screen-livres .voice-indicator {
+    z-index: 3;
+    margin-bottom: 20px;
+}
+#screen-livres .progress-counter {
+    z-index: 3;
+    margin-bottom: 20px;
+}
+#screen-livres .admin-button {
+    z-index: 3;
+}
+
+.books-title {
+    font-size: 2.5rem;
+    color: #ffd700;
+    margin-bottom: 2rem;
+}
+
+.books-circle {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    margin: 2rem auto;
+}
+
+.book {
+    position: absolute;
+    width: 100px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, #7c3aed, #2d1b69);
+    border: 3px solid #ffd700;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.book.active {
+    transform: scale(1.3);
+    box-shadow: 0 0 50px #ffd700;
+    border-color: #ffd700;
+    animation: bookGlow 1s ease-in-out infinite;
+}
+
+@keyframes bookGlow {
+    0%, 100% { box-shadow: 0 0 30px #ffd700; }
+    50% { box-shadow: 0 0 60px #ffd700, 0 0 90px #ff6ec7; }
+}
+
+.book.validated {
+    background: linear-gradient(135deg, #4ade80, #10b981);
+    border-color: #4ade80;
+    box-shadow: 0 0 20px #4ade80;
+}
+
+.book-name {
+    position: absolute;
+    bottom: -30px;
+    font-size: 0.9rem;
+    color: #c7b299;
+    white-space: nowrap;
+}
+
+.current-call {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.call-name {
+    font-size: 5rem;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 30px #ffd700;
+    margin-bottom: 1.5rem;
+}
+
+.call-question {
+    font-size: 2.5rem;
+    color: #c7b299;
+}
+
+.speaking-indicator {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.speaking-indicator.active {
+    display: flex;
+}
+
+.speaking-indicator .wave {
+    width: 8px;
+    height: 30px;
+    background: #ffd700;
+    border-radius: 10px;
+    animation: wave 1s ease-in-out infinite;
+}
+
+.speaking-indicator .wave:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.speaking-indicator .wave:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes wave {
+    0%, 100% { height: 30px; }
+    50% { height: 50px; }
+}
+
+.voice-indicator {
+    margin: 1rem 0;
+}
+
+.book-voice-meter-container {
+    margin-top: 1.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.book-voice-meter {
+    width: 100%;
+    height: 30px;
+    background: rgba(0,0,0,0.5);
+    border: 2px solid #4ade80;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.book-voice-level {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4ade80, #ffd700);
+    transition: width 0.1s ease;
+    box-shadow: 0 0 15px #4ade80;
+}
+
+.book-voice-percentage {
+    font-size: 1.2rem;
+    color: #4ade80;
+    font-weight: bold;
+}
+
+.voice-status {
+    font-size: 1.8rem;
+    color: #fbbf24;
+    font-style: italic;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px currentColor;
+    min-height: 2.5rem;
+}
+
+.progress-counter {
+    font-size: 2.5rem;
+    color: #4ade80;
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+/* ═══════════════════════════════════════════════════════
+   FORMATION CARTE
+   ═══════════════════════════════════════════════════════ */
+
+.map-formation {
+    text-align: center;
+    width: 90%;
+    max-width: 1000px;
+}
+
+.map-title {
+    font-size: 3rem;
+    color: #ffd700;
+    margin-bottom: 1rem;
+}
+
+.map-subtitle {
+    font-size: 1.8rem;
+    color: #c7b299;
+    margin-bottom: 3rem;
+}
+
+.runes-fusion {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 3rem;
+    position: relative;
+}
+
+.rune-symbol {
+    position: absolute;
+    font-size: 2rem;
+    animation: runeOrbit 3s linear infinite;
+}
+
+@keyframes runeOrbit {
+    from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+}
+
+.map-container {
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
+    background: rgba(0,0,0,0.3);
+    border: 3px solid #ffd700;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(135deg, #2d1b69 0%, #1a0b2e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.map-marker {
+    font-size: 5rem;
+    animation: markerPulse 1s ease-in-out infinite;
+}
+
+@keyframes markerPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+.map-label {
+    font-size: 2rem;
+    color: #ffd700;
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+/* ═══════════════════════════════════════════════════════
+   ÉCRAN FINAL
+   ═══════════════════════════════════════════════════════ */
+
+.final-container {
+    text-align: center;
+    position: relative;
+}
+
+.confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ffd700;
+    animation: confettiFall 3s ease-in infinite;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.final-title {
+    font-size: 4rem;
+    color: #ffd700;
+    text-shadow: 0 0 40px #ffd700, 0 0 80px #ff6ec7;
+    margin-bottom: 2rem;
+    animation: finalPulse 2s ease-in-out infinite;
+}
+
+@keyframes finalPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.final-subtitle {
+    font-size: 2rem;
+    color: #c7b299;
+    margin-top: 2rem;
+}
+
+.final-image-container {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.final-image {
+    max-width: 80%;
+    max-height: 50vh;
+    border: 5px solid #ffd700;
+    border-radius: 20px;
+    box-shadow: 0 0 50px #ffd700, 0 0 100px #ff6ec7;
+    animation: imageReveal 1s ease-in-out;
+}
+
+@keyframes imageReveal {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .magic-title { font-size: 2.5rem; }
+    .challenge-title { font-size: 2rem; }
+    .portal-container { width: 300px; height: 300px; }
+    .books-circle { width: 400px; height: 400px; }
+    .book { width: 60px; height: 75px; font-size: 2rem; }
+    .timer-display { font-size: 3rem; }
+    .final-title { font-size: 2.5rem; }
+}
+
+/* --- CORRECTION BUG BOUTON CLIC --- */
+/* Le contenu superposé doit réactiver les clics sur les éléments interactifs */
+.library-container.video-overlay .magic-button {
+    pointer-events: auto !important;
+}
+
+
+/* --- ANIMATION DU TITRE --- */
+.animated-title {
+    animation: pulseText 2s infinite alternate; /* Nom de l'animation, durée, répétition, direction */
+}
+
+/* --- POSITIONNEMENT DES ÉLÉMENTS DE LA BIBLIOTHÈQUE --- */
+.library-container .magic-button {
+    /* Position absolue par rapport au .library-container (qui est relative) */
+    position: absolute;
+    top: 50%; /* Déplace le haut du bouton à 50% de la hauteur */
+    left: 50%; /* Déplace la gauche du bouton à 50% de la largeur */
+    transform: translate(-50%, -50%); /* Centre le bouton par rapport à ses propres dimensions */
+}
+
+/* --- STYLES POUR L'ÉCRAN DE L'APPEL DES LIVRES AVEC FOND VIDÉO --- */
+.livres-content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; 
+    z-index: 2;
+    
+    /* Centrer le contenu par-dessus la vidéo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    /* AUCUN fond - transparent */
+    background: transparent;
+}
+
+/* Réactiver les clics pour les éléments interactifs spécifiques */
+.livres-content-overlay .book,
+.livres-content-overlay .admin-button {
+    pointer-events: auto !important;
+}
+
+/* Assurez-vous que le conteneur principal des livres est au-dessus de l'overlay */
+#screen-livres .books-container {
+    z-index: 3;
+}
+@keyframes pulseText {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+        text-shadow: 0 0 5px #fff;
+    }
+    100% {
+        transform: scale(1.05);
+        opacity: 1;
+        text-shadow: 0 0 15px #ffd700, 0 0 30px #ffd700; /* Ombre plus intense */
+    }
+}

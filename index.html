@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Détectives du Mystère Magique</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Particules magiques de fond -->
+    <div class="particles" id="particles"></div>
+
+    <!-- ÉCRAN 0 : Accueil -->
+    <div id="screen-welcome" class="screen active">
+        <div class="welcome-content">
+            <h1 class="magic-title">✨ Les Détectives du<br>Mystère Magique ✨</h1>
+            <div class="subtitle">Une aventure attend les courageux...</div>
+            <button class="magic-button" onclick="startGame()">
+                COMMENCER L'AVENTURE
+            </button>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 0.5 : Vidéo PRÉ-INTRO -->
+    <div id="screen-pre-intro" class="screen">
+        <video id="video-pre-intro" class="fullscreen-video" playsinline preload="auto">
+            <source src="assets/videos/pre-intro.mp4" type="video/mp4">
+            <source src="assets/videos/pre-intro.webm" type="video/webm">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+        <div class="video-overlay">
+            <button class="skip-button" onclick="skipPreIntro()">Passer ⏭️</button>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 1 : Vidéo Intro -->
+    <div id="screen-intro" class="screen">
+        <video id="video-intro" class="fullscreen-video" playsinline preload="auto">
+            <source src="assets/videos/intro.mp4" type="video/mp4">
+            <source src="assets/videos/intro.webm" type="video/webm">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+        <div class="video-overlay">
+            <button class="skip-button" onclick="skipIntro()">Passer ⏭️</button>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 2 : Épreuve 1 - Cri Magique -->
+    <div id="screen-cri" class="screen">
+        <div class="challenge-container">
+            <h2 class="challenge-title">⚡ ÉPREUVE 1 : LE CRI MAGIQUE ⚡</h2>
+            
+          <div class="portal-container" id="portal-cri-placeholder">
+                </div> 
+
+            <div class="instruction-box">
+                <p>Pour réveiller le portail, vous devez TOUS crier<br>la formule magique ensemble :</p>
+                <div class="magic-formula">✨ ABRACADABRA RÉVÉLEZ-VOUS ! ✨</div>
+            </div>
+
+            <div class="voice-meter-container">
+                <div class="voice-label">🎤 Puissance vocale</div>
+                <div class="voice-meter">
+                    <div class="voice-level" id="voice-level"></div>
+                </div>
+                <div class="voice-percentage" id="voice-percentage">0%</div>
+            </div>
+
+            <button class="admin-button" onclick="forceValidateCri()">
+                ✅ VALIDER MANUELLEMENT (Admin)
+            </button>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 2.5 : Transition Portail Activé -->
+    <div id="screen-transition-1" class="screen">
+        <div class="transition-container">
+            <div class="portal-activated">
+                <div class="pulse-circle"></div>
+                <h2 class="success-text">✅ LE PORTAIL S'ÉVEILLE !</h2>
+                <p class="transition-text">Mais il n'est pas encore ouvert...<br>Une dernière épreuve vous attend...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 2.7 : Vidéo Pre-Portail -->
+    <div id="screen-pre-portail" class="screen">
+        <video id="video-pre-portail" class="fullscreen-video" playsinline preload="auto">
+            <source src="assets/videos/pre-portail.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+        <div class="video-overlay">
+            <button class="skip-button" onclick="skipPrePortail()">Passer ⏭️</button>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 3 : Vidéo Silence (Magicien fait "chut") -->
+    <div id="screen-silence-video" class="screen">
+        <video id="video-silence" class="fullscreen-video" playsinline>
+            <source src="assets/videos/silence.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            
+            <button class="skip-button" onclick="skipSilence()">Passer ⏭️</button>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 4 : Épreuve 2 - Silence Absolu -->
+    <div id="screen-silence" class="screen">
+        <div class="challenge-container">
+            <h2 class="challenge-title">🤫 ÉPREUVE 2 : LE SILENCE ABSOLU 🤫</h2>
+            
+            <div class="timer-container">
+                <div class="timer-label">Temps restant</div>
+                <div class="timer-display" id="silence-timer">00:30</div>
+            </div>
+
+            <div class="silence-image-container">
+                <img id="silence-animation" src="assets/images/boucle/transparent_frame_00_100.png" alt="Silence" class="silence-icon">
+            </div>
+
+            <div class="sound-meter-container">
+                <div class="sound-label">🎤 Niveau sonore</div>
+                <div class="sound-meter">
+                    <div class="sound-level" id="sound-level"></div>
+                </div>
+                <div class="sound-warning" id="sound-warning">⚠️ Trop de bruit ! Restez calmes !</div>
+            </div>
+
+            <div class="instruction-text">Chuuut... pas un bruit !</div>
+
+            <button class="admin-button" onclick="forceValidateSilence()">
+                ✅ RÉUSSIR L'ÉPREUVE (Admin)
+            </button>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 5 : Ouverture Portail -->
+    <div id="screen-portail-ouvert" class="screen">
+        <div class="portal-opening">
+            <h2 class="explosion-text">✨✨✨ VOUS AVEZ RÉUSSI ! ✨✨✨</h2>
+            <p class="portal-message">
+                Incroyable ! Vous avez prouvé votre courage ET votre maîtrise !<br>
+                Le Portail s'ouvre pour vous !
+            </p>
+            <video id="portal-video" class="portal-video portal-finale" loop muted playsinline preload="auto">
+                <source src="assets/videos/portail.mp4" type="video/mp4">
+                Votre navigateur ne supporte pas la vidéo.
+            </video>
+            <div class="portal-explosion"></div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 6 : Tunnel de Traversée -->
+    <div id="screen-tunnel" class="screen">
+        <div class="tunnel-container">
+            <div class="tunnel-effect"></div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 7 : Bibliothèque - Arrivée -->
+    <div id="screen-bibliotheque-intro" class="screen">
+        <video id="video-livre-intro" class="fullscreen-video" autoplay loop muted playsinline preload="auto">
+            <source src="assets/videos/livre.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+
+        <div class="library-container video-overlay">
+            <h2 class="library-title animated-title">Bienvenue dans mon sanctuaire secret...</h2>
+            <div class="library-message" id="library-message-text">
+                </div>
+            <button class="magic-button" onclick="startBookCalling()">
+                COMMENCER L'APPEL
+            </button>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 8 : Appel des 14 Enfants -->
+    <div id="screen-livres" class="screen">
+        <video id="background-livres-video" class="fullscreen-video" autoplay loop muted playsinline preload="auto">
+            <source src="assets/videos/background-livres.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+        
+        <div class="livres-content-overlay">
+            <div class="books-container">
+            <h2 class="books-title">📚 Les Livres Magiques 📚</h2>
+            
+            <div class="books-circle" id="books-circle">
+                </div>
+
+            <div class="current-call" id="current-call">
+                <div class="call-name" id="call-name">NINA</div>
+                <div class="call-question">Es-tu là ?</div>
+                <div class="speaking-indicator" id="speaking-indicator">
+                    <span class="wave"></span>
+                    <span class="wave"></span>
+                    <span class="wave"></span>
+                </div>
+            </div>
+
+            <div class="voice-indicator">
+                <div class="voice-status" id="voice-status">En attente...</div>
+                <div class="book-voice-meter-container">
+                    <div class="book-voice-meter">
+                        <div class="book-voice-level" id="book-voice-level"></div>
+                    </div>
+                    <div class="book-voice-percentage" id="book-voice-percentage">0%</div>
+                </div>
+            </div>
+
+            <div class="progress-counter" id="progress-counter">0 / 14</div>
+
+            <button class="admin-button" onclick="forceValidateBook()">
+                ✅ <span id="current-book-name">NINA</span> EST PRÉSENT(E)
+            </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 9 : Vidéo Premier Indice -->
+    <div id="screen-premier-indice" class="screen">
+        <video id="video-premier-indice" class="fullscreen-video" playsinline preload="auto">
+            <source src="assets/videos/premier-indice.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+        <div class="video-overlay">
+            <button class="skip-button" onclick="skipPremierIndice()">Passer ⏭️</button>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 10 : Vidéo Finale -->
+    <div id="screen-finale" class="screen">
+        <video id="video-finale" class="fullscreen-video" playsinline>
+            <source src="assets/videos/finale.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay">
+            <button class="skip-button" onclick="skipFinale()">Passer ⏭️</button>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 11 : Message Final -->
+    <div id="screen-final" class="screen">
+        <div class="final-container">
+            <div class="confetti" id="confetti"></div>
+            <h1 class="final-title">
+                ✨✨✨✨✨✨✨✨
+                <br>
+                🎯 RENDEZ-VOUS À<br>L'AIRE DE JEUX !
+                <br>
+                ✨✨✨✨✨✨✨✨
+            </h1>
+            
+            <div class="final-image-container">
+                <img src="assets/images/aire-de-jeux.png" alt="Aire de jeux" class="final-image">
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
