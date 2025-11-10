@@ -3,7 +3,7 @@
 // ═══════════════════════════════════════════════════════
 
 const CHILDREN_NAMES = [
-    'Nina', 'Cornichon ', 'Tiago', 'Léa', 'Nour', 'Rose', 'Luna', 'Hugo', 'Louna',
+    'Nina', 'Noéline ', 'Tiago', 'Léa', 'Nour', 'Rose', 'Luna', 'Hugo', 'Louna',
     'Esteban', 'Malo',  'Lilia', 'Lilio',  'Yakine'
 ];
 
@@ -892,10 +892,10 @@ async function validateBook() {
     createRuneAnimation(currentChildIndex);
     
     const confirmations = [
-        `Parfait ${childName} ! Bienvenue !`,
-        `Excellent ${childName} ! Hello !`,
-        `Merveilleux ${childName} ! Super !`,
-        `Formidable ${childName} ! OK Genial !`
+        `Parfait ${childName} `,
+        `Excellent ${childName} `,
+        `Merveilleux ${childName} `,
+        `Formidable ${childName} `
     ];
     const confirmation = confirmations[Math.floor(Math.random() * confirmations.length)];
     
@@ -953,15 +953,7 @@ async function showMapFormation() {
 // ÉCRAN 9 : VIDÉO PREMIER INDICE
 // ═══════════════════════════════════════════════════════
 
-function playVideoPremierIndice() {
-    switchScreen('screen-premier-indice');
-    
-    const video = document.getElementById('video-premier-indice');
-    
-    let videoStarted = false;
-    let timeoutId = null;
-    
-    console.log('🎬 Lecture vidéo PREMIER INDICE...');
+
     
     video.addEventListener('playing', () => {
         videoStarted = true;
@@ -988,7 +980,7 @@ function playVideoPremierIndice() {
         console.log('✅ Vidéo premier indice terminée');
         playVideoFinale();
     };
-}
+
 
 function skipPremierIndice() {
     console.log('⏭️ Passage vidéo premier indice...');
@@ -1054,7 +1046,7 @@ async function showFinalScreen() {
     await new Promise(resolve => setTimeout(resolve, 800));
     await speak('Rendez-vous à l\'aire de jeux !', { pitch: 0.95, rate: 0.9 });
     await new Promise(resolve => setTimeout(resolve, 800));
-    await speak('aller on y va  ', { pitch: 0.9, rate: 0.85 });
+    
 }
 
 function createConfetti() {
