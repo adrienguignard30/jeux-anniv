@@ -3,8 +3,8 @@
 // ═══════════════════════════════════════════════════════
 
 const CHILDREN_NAMES = [
-    'Nina', 'Noéline ', 'Tiago', 'Léa', 'Nour', 'Rose', 'Luna', 'Hugo', 'Louna',
-    'Esteban', 'Malo',  'Lilia', 'Lilio',  'Yakine'
+    'Nina', 'Noéline ', 'Miryam', 'Léa', 'Sia', 'Rose', 'Luna', 'Hugo', 'Louna',
+    'Esteban', 'Malo',  'Lilia', 'Lilio', 
 ];
 
 const BOOK_EMOJIS = ['📕', '📗', '📘', '📙', '📔', '📓', '📒', '📕', '📗', '📘', '📙', '📔', '📓', '📒'];
@@ -669,9 +669,21 @@ async function validateSilence() {
     // On passe à l'écran d'ouverture, puis on lance la vidéo
     switchScreen('screen-portail-ouvert');
     
-    // Lancer la vidéo du portail ici
+    // Lancer la vidéo du portail ici (2 lectures)
     const portalVideo = document.getElementById('portal-video');
     if (portalVideo) {
+        portalVideo.muted = false;
+        portalVideo.volume = 1.0;
+        
+        let playCount = 0;
+        portalVideo.addEventListener('ended', () => {
+            playCount++;
+            if (playCount < 2) {
+                portalVideo.currentTime = 0;
+                portalVideo.play();
+            }
+        });
+        
         portalVideo.play().catch(e => console.warn('Erreur lecture portail:', e)); 
     }
 
@@ -955,6 +967,15 @@ async function showMapFormation() {
 
 
     
+    function playVideoPremierIndice() {
+    switchScreen('screen-premier-indice');
+    const video = document.getElementById('video-premier-indice');
+    
+    let videoStarted = false;
+    let timeoutId = null;
+    
+    console.log('🎬 Lecture vidéo PREMIER INDICE...');
+    
     video.addEventListener('playing', () => {
         videoStarted = true;
         if (timeoutId) {
@@ -980,7 +1001,7 @@ async function showMapFormation() {
         console.log('✅ Vidéo premier indice terminée');
         playVideoFinale();
     };
-
+}
 
 function skipPremierIndice() {
     console.log('⏭️ Passage vidéo premier indice...');

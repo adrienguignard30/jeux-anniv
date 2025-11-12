@@ -334,11 +334,15 @@ animation: glow 2s ease-in-out infinite;
 }
 
 .pulse-circle {
-    width: 300px;
-    height: 300px;
+    width: 100vw;
+    height: 100vh;
     border: 5px solid #ffd700;
     border-radius: 50%;
-    margin: 0 auto 2rem;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     animation: pulsate 1s ease-in-out infinite;
 }
 
